@@ -23,6 +23,8 @@ Currently available flags are:
 * `upgrade`: takes `y` and `yes` as valid arguments, indicating that the `avail-light` binary should be upgraded
   * Using this flag wipes your existing data and config, use with caution! This flag does not guarantee that the
     binary will be upgraded.
+* `force_wsl`: takes `y` and `yes` as valid arguments, the script exits on WSL systems by default. This flag can
+  removed in the future.
 
 You can use a custom config by passing it to `availup` as a flag:
 ```bash
@@ -51,6 +53,9 @@ nano ~/identity.toml
 curl -sL1 avail.sh | bash -s -- --identity ~/identity.toml
 ```
 
+> ℹ️ The script persists your identity file between runs. Deleting the file will cause a new one to be generated on
+> the next run.
+
 Alternatively, you can pass a specific application ID with `availup`:
 ```bash
 rm ~/.avail/goldberg/config.yml
@@ -67,3 +72,10 @@ curl -sL1 avail.sh | bash -s -- --upgrade y
 ```
 
 > ℹ️ Upgrading the LC only works if the binary was installed with the latest `availup` script or cargo.
+
+To run the light client on WSL systems, use the `--force_wsl` flag like:
+```bash
+curl -sL1 avail.sh | bash -s -- --force_wsl y
+```
+
+> ℹ️ Running this flag on any other system does nothing.
